@@ -1,3 +1,5 @@
+name: Deploy Frontend
+
 on:
   push:
     branches:
@@ -11,19 +13,27 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@master
-
         with:
           host: 174.129.175.4
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-
           script: |
+            # Navigate to project folder
             cd /home/ubuntu/ScribelyAI/frontend
-            git pull origin main
+            
+            # Clean up any local changes and sync with GitHub
+            git fetch origin main
+            git reset --hard origin/main
+            
+            # Build process
             npm install
             npx expo export --platform web
+            
+            # Deploy to Nginx web root
             sudo rm -rf /var/www/html/*
             sudo cp -r dist/* /var/www/html/
+            
+            # Restart Nginx to reflect changes
             sudo systemctl restart nginx
