@@ -1,0 +1,5 @@
+tags. Let me double-check the translations to be sure. Yes, "வணக்கம்" is definitely "Hello", "உலகம்" is "World", and "நன்று" as "Good" makes sense in this context. Alright, that should be it.
+</think>
+
+<result>
+{"title": "Hello", "details": ["World", "Good"]}

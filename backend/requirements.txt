@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+httpx
+python-multipart
+reportlab
+python-docx
+sarvamai
+supabase
